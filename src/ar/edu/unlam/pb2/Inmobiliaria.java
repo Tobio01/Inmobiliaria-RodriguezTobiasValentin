@@ -2,6 +2,7 @@ package ar.edu.unlam.pb2;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 
 public class Inmobiliaria {
 
@@ -9,7 +10,7 @@ public class Inmobiliaria {
 	private String direccion;
 	private Integer numTelefono;
 	private ArrayList<Propiedad> propiedades;
-	private ArrayList<Cliente> clientes;
+	private HashSet<Cliente> clientes;
 
 	public Inmobiliaria(String nombre, String direccion, Integer numTelefono) {
 
@@ -17,7 +18,7 @@ public class Inmobiliaria {
 		this.direccion = direccion;
 		this.numTelefono = numTelefono;
 		this.propiedades = new ArrayList<Propiedad>();
-		this.clientes = new ArrayList<Cliente>();
+		this.clientes = new HashSet<Cliente>();
 	}
 
 	public String getNombre() {
@@ -52,11 +53,12 @@ public class Inmobiliaria {
 		this.propiedades = propiedades;
 	}
 
-	public ArrayList<Cliente> getClientes() {
+
+	public HashSet<Cliente> getClientes() {
 		return clientes;
 	}
 
-	public void setClientes(ArrayList<Cliente> clientes) {
+	public void setClientes(HashSet<Cliente> clientes) {
 		this.clientes = clientes;
 	}
 
@@ -111,14 +113,11 @@ public class Inmobiliaria {
 	}
 
 	public boolean agregarCliente(Cliente clienteNuevo) {
-		for (Cliente clienteExistente : clientes) {
-			if (clienteExistente.getDni() == clienteNuevo.getDni()) {
-				return false;
-			}
+		if (clientes.add(clienteNuevo)) {
+			return true;
+		} else {
+			return false;
 		}
-
-		clientes.add(clienteNuevo);
-		return true;
 	}
 
 	public Cliente buscarCliente(int dni) {

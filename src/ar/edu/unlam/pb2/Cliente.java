@@ -1,5 +1,9 @@
 package ar.edu.unlam.pb2;
 
+import java.util.Objects;
+
+import javax.print.attribute.standard.MediaSize.Other;
+
 public class Cliente {
 
 	private String nombre;
@@ -51,6 +55,23 @@ public class Cliente {
 	}
 	public void setNumTelefono(Integer numTelefono) {
 		this.numTelefono = numTelefono;
+	}
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(dni);
+		
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) 
+			return true;
+		if (obj==null)
+			return false;
+		if (getClass()!=obj.getClass())
+			return false;
+		Cliente cliente = (Cliente) obj;
+		return Objects.equals(dni, cliente.dni);
 	}
 	
 	

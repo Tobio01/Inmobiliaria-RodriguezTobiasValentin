@@ -2,7 +2,6 @@ package ar.edu.unlam.pb2;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 public class Inmobiliaria {
 
@@ -211,7 +210,42 @@ public class Inmobiliaria {
 
 			}
 		}
-		return propiedadesListado;
+		if (propiedadesListado.isEmpty()) {
+			return null;
+		} else {
+			return propiedadesListado;
+		}
+	}
+
+	public ArrayList<Propiedad>obtenerListadoVenta(){
+ 
+		ArrayList<Propiedad> propiedadesListado = new ArrayList<Propiedad>();
+		
+		for (Propiedad propiedadesExistentes : propiedades) {
+			if (propiedadesExistentes.isEstaDisponibleVenta()) {
+				propiedadesListado.add(propiedadesExistentes);
+			}
+		}
+		if (propiedadesListado.isEmpty()) {
+			return null;
+		} else {
+			return propiedadesListado;
+		}
+	}
+	public ArrayList<Propiedad>obtenerListadoAlquiler(){
+		 
+		ArrayList<Propiedad> propiedadesListado = new ArrayList<Propiedad>();
+		
+		for (Propiedad propiedadesExistentes : propiedades) {
+			if (propiedadesExistentes.isEstaDisponibleAlquiler()) {
+				propiedadesListado.add(propiedadesExistentes);
+			}
+		}
+		if (propiedadesListado.isEmpty()) {
+			return null;
+		} else {
+			return propiedadesListado;
+		}
 	}
 
 	public void ventaPropiedad(int codigo, Cliente cliente) {
@@ -219,12 +253,12 @@ public class Inmobiliaria {
 		for (Propiedad propiedad : propiedades) {
 			if (propiedad.getCodigo() == codigo) {
 				propiedadEncontrada = true;
-				if (!propiedad.isEstaDisponible()) {
+				if (!propiedad.isEstaDisponibleVenta()) {
 					System.err.println("La propiedad no está disponible");
 				} else if (cliente.getDinero() < propiedad.getPrecioVenta()) {
 					System.err.println("No cuenta con el dinero suficiente para comprar esta propiedad");
 				} else {
-					propiedad.setEstaDisponible(false);
+					propiedad.setEstaDisponibleVenta(false);
 					double dineroClienteActual = cliente.getDinero() - propiedad.getPrecioVenta();
 					cliente.setDinero(dineroClienteActual);
 					System.out.println("¡Felicidades! Usted compró la propiedad");
@@ -242,12 +276,12 @@ public class Inmobiliaria {
 		for (Propiedad propiedad : propiedades) {
 			if (propiedad.getCodigo() == codigo) {
 				propiedadEncontrada = true;
-				if (!propiedad.isEstaDisponible()) {
+				if (!propiedad.isEstaDisponibleAlquiler()) {
 					System.err.println("La propiedad no está disponible");
 				} else if (cliente.getDinero() < propiedad.getPrecioAlquiler()) {
 					System.err.println("No cuenta con el dinero suficiente para alquilar esta propiedad");
 				} else {
-					propiedad.setEstaDisponible(false);
+					propiedad.setEstaDisponibleAlquiler(false);
 					double dineroClienteActual = cliente.getDinero() - propiedad.getPrecioAlquiler();
 					cliente.setDinero(dineroClienteActual);
 					System.out.println("¡Felicidades! Usted alquilo la propiedad");

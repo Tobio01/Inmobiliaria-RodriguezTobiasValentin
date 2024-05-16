@@ -6,10 +6,10 @@ public class Main {
 	static Scanner teclado = new Scanner(System.in);
 
 	static Inmobiliaria inmobiliaria = new Inmobiliaria("Boxer", "Barros Pasos 1758", 44538431);
-	
+
 	public static void main(String[] args) {
 		int opcion = 0;
-	
+
 		do {
 			mostrarMenu();
 			opcion = teclado.nextInt();
@@ -93,6 +93,18 @@ public class Main {
 
 				break;
 			case 8:
+				System.out.println("Ingrese 1 para buscar propiedades disponibles para la venta o 2 para alquiler");
+				int opcionVentaAlquiler = teclado.nextInt();
+				if (opcionVentaAlquiler == 1) {
+					System.out.println(inmobiliaria.obtenerListadoVenta().toString());
+				} else if (opcionVentaAlquiler == 2) {
+					System.out.println(inmobiliaria.obtenerListadoAlquiler().toString());
+				} else {
+					System.out.println("Opcion Incorrecta");
+				}
+
+				break;
+			case 9:
 				System.out.println("Ingrese el numero de DNI del cliente");
 				int dni = teclado.nextInt();
 				teclado.nextLine();
@@ -105,7 +117,7 @@ public class Main {
 					inmobiliaria.ventaPropiedad(codigo, inmobiliaria.buscarCliente(dni));
 				}
 				break;
-			case 9:
+			case 10:
 				System.out.println("Ingrese el numero de DNI del cliente");
 				int dniAlquiler = teclado.nextInt();
 				teclado.nextLine();
@@ -135,8 +147,9 @@ public class Main {
 		System.out.println("\n ----> 1. Agregar propiedad <----" + "\n ----> 2. Modificar propiedad <----"
 				+ "\n ----> 3. Agregar Cliente <----" + "\n ----> 4. Listado ordenado por Precio <----"
 				+ "\n ----> 5. Listado ordenado por Ubicacion <----" + "\n ----> 6. Buscar propiedad Precio <----"
-				+ "\n ----> 7. Buscar propiedad por Ubicacion <----" + "\n ----> 8. Vender Propiedad <----"
-				+ "\n ----> 9. Alquilar propiedad <----" + "\n ----> 0. Salir <----");
+				+ "\n ----> 7. Buscar propiedad por Ubicacion <----"
+				+ "\n ----> 8. Buscar propiedad por Venta o Alquiler <----" + "\n ----> 9. Vender Propiedad <----"
+				+ "\n ----> 10. Alquilar propiedad <----" + "\n ----> 0. Salir <----");
 	}
 
 	public static Casa crearCasa() {
@@ -158,7 +171,7 @@ public class Main {
 		double precioAlquiler = teclado.nextDouble();
 		teclado.nextLine();
 
-		Casa nueva = new Casa(ciudad, calle, altura, mtsCuadrados, true, 0, precioVenta, precioAlquiler);
+		Casa nueva = new Casa(ciudad, calle, altura, mtsCuadrados, true, true, 0, precioVenta, precioAlquiler);
 
 		return nueva;
 
@@ -188,8 +201,8 @@ public class Main {
 		double precioAlquiler = teclado.nextDouble();
 		teclado.nextLine();
 
-		Departamento nueva = new Departamento(ciudad, calle, altura, letra, piso, mtsCuadrados, true, 0, precioVenta,
-				precioAlquiler);
+		Departamento nueva = new Departamento(ciudad, calle, altura, letra, piso, mtsCuadrados, true, true, 0,
+				precioVenta, precioAlquiler);
 
 		return nueva;
 
@@ -214,7 +227,7 @@ public class Main {
 		double precioAlquiler = teclado.nextDouble();
 		teclado.nextLine();
 
-		PH nueva = new PH(ciudad, calle, altura, mtsCuadrados, true, 0, precioVenta, precioAlquiler);
+		PH nueva = new PH(ciudad, calle, altura, mtsCuadrados, true, true, 0, precioVenta, precioAlquiler);
 
 		return nueva;
 
@@ -239,7 +252,7 @@ public class Main {
 		double precioAlquiler = teclado.nextDouble();
 		teclado.nextLine();
 
-		Campo nueva = new Campo(ciudad, calle, altura, mtsCuadrados, true, 0, precioVenta, precioAlquiler);
+		Campo nueva = new Campo(ciudad, calle, altura, mtsCuadrados, true, true, 0, precioVenta, precioAlquiler);
 
 		return nueva;
 
@@ -264,7 +277,7 @@ public class Main {
 		double precioAlquiler = teclado.nextDouble();
 		teclado.nextLine();
 
-		Terrenos nueva = new Terrenos(ciudad, calle, altura, mtsCuadrados, true, 0, precioVenta, precioAlquiler);
+		Terrenos nueva = new Terrenos(ciudad, calle, altura, mtsCuadrados, true, true, 0, precioVenta, precioAlquiler);
 
 		return nueva;
 
@@ -295,8 +308,8 @@ public class Main {
 		int opcion = 0;
 		do {
 			System.out.println("Ingrese el valor a modificar:" + "\n 1. Ciudad" + "\n 2. Calle" + "\n 3. Altura"
-					+ "\n 4. Metros Cuadrados" + "\n 5. Disponibilidad" + "\n 6. Precio Venta" + "\n 7. Precio Alquiler"
-					+ "\n 8. Regresar");
+					+ "\n 4. Metros Cuadrados" + "\n 5. Disponibilidad Venta" + "\n 6. Disponibilidad Alquiler"
+					+ "\n 7. Precio Venta" + "\n 8. Precio Alquiler" + "\n 9. Regresar");
 			opcion = teclado.nextInt();
 
 			switch (opcion) {
@@ -327,38 +340,51 @@ public class Main {
 				propiedadModificar.setMtsCuadrados(mtsCuadrados);
 				break;
 			case 5:
-				System.out.println("Valor actual: ---> " + propiedadModificar.isEstaDisponible());
+				System.out.println("Valor actual: ---> " + propiedadModificar.isEstaDisponibleVenta());
 				System.out.println("Ingrese 1 para que la propiedad este disponible, si no lo esta ingrese 2");
 				int opcionNumero = teclado.nextInt();
 				teclado.nextLine();
 				if (opcionNumero == 1) {
-					propiedadModificar.setEstaDisponible(true);
+					propiedadModificar.setEstaDisponibleVenta(true);
 				} else if (opcionNumero == 2) {
-					propiedadModificar.setEstaDisponible(false);
+					propiedadModificar.setEstaDisponibleVenta(false);
 				} else {
 					System.out.println("Opcion incorrecta");
 				}
 				break;
 			case 6:
+				System.out.println("Valor actual: ---> " + propiedadModificar.isEstaDisponibleVenta());
+				System.out.println("Ingrese 1 para que la propiedad este disponible, si no lo esta ingrese 2");
+				int opcionNumero1 = teclado.nextInt();
+				teclado.nextLine();
+				if (opcionNumero1 == 1) {
+					propiedadModificar.setEstaDisponibleVenta(true);
+				} else if (opcionNumero1 == 2) {
+					propiedadModificar.setEstaDisponibleVenta(false);
+				} else {
+					System.out.println("Opcion incorrecta");
+				}
+				break;
+			case 7:
 				System.out.println("Valor actual: ---> " + propiedadModificar.getPrecioVenta());
 				System.out.println("...Ingrese el precio de venta de la propiedad...");
 				double precioVenta = teclado.nextDouble();
 				teclado.nextLine();
 				propiedadModificar.setPrecioVenta(precioVenta);
 				break;
-			case 7:
+			case 8:
 				System.out.println("Valor actual: ---> " + propiedadModificar.getPrecioAlquiler());
 				System.out.println("...Ingrese el precio de alquiler de la propiedad...");
 				double precioAlquiler = teclado.nextDouble();
 				teclado.nextLine();
 				propiedadModificar.setPrecioAlquiler(precioAlquiler);
 				break;
-			case 8:
+			case 9:
 				break;
 			default:
 				System.err.println("Opcion Incorrecta");
 			}
 
-		} while (opcion != 8);
+		} while (opcion != 9);
 	}
 }

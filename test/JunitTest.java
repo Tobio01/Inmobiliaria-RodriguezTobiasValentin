@@ -1,18 +1,21 @@
 import static org.junit.Assert.*;
 
+import java.util.Iterator;
+
 import org.junit.Test;
 
 import ar.edu.unlam.pb2.Casa;
 import ar.edu.unlam.pb2.Cliente;
 import ar.edu.unlam.pb2.Departamento;
 import ar.edu.unlam.pb2.Inmobiliaria;
+import ar.edu.unlam.pb2.Propiedad;
 
 public class JunitTest {
 
 	@Test
 	public void queSePuedaDarDeAltaUnaCasaEnLaInmobiliaria() {
 		Inmobiliaria inmobiliaria = new Inmobiliaria("Boxer", "Barros Pasos 1758", 44538431);
-		Casa casa = new Casa("Parque Patricios", "Av Amancio Alcorta", 2544, 50, true, 0, 350000, 1000);
+		Casa casa = new Casa("Parque Patricios", "Av Amancio Alcorta", 2544, 50, true ,true, 0, 350000, 1000);
 		
 		boolean seAgrego = inmobiliaria.agregarPropiedad(casa);
 
@@ -23,8 +26,8 @@ public class JunitTest {
 	@Test
 	public void queSePuedanDarDeAltaDosCasasEnLaInmobiliaria() {
 		Inmobiliaria inmobiliaria = new Inmobiliaria("Boxer", "Barros Pasos 1758", 44538431);
-		Casa casa = new Casa("Parque Patricios", "Av Amancio Alcorta", 2544, 50, true, 0, 350000, 1000);
-		Casa casa2 = new Casa("Nuñez", "Av Pres Figueroa Alcorta", 7597, 70, true, 0, 150000, 300);
+		Casa casa = new Casa("Parque Patricios", "Av Amancio Alcorta", 2544, 50, true,true, 0, 350000, 1000);
+		Casa casa2 = new Casa("Nuñez", "Av Pres Figueroa Alcorta", 7597, 70, true,true, 0, 150000, 300);
 
 		boolean seAgrego = inmobiliaria.agregarPropiedad(casa);
 		boolean seAgrego2 = inmobiliaria.agregarPropiedad(casa2);
@@ -37,8 +40,8 @@ public class JunitTest {
 	@Test
 	public void queNoSePuedanDarDeAltaDosCasasConUnaMismaDireccion() {
 		Inmobiliaria inmobiliaria = new Inmobiliaria("Boxer", "Barros Pasos 1758", 44538431);
-		Casa casa = new Casa("Parque Patricios", "Av Amancio Alcorta", 2544, 50, true, 0, 350000, 1000);
-		Casa casa2 = new Casa("Parque Patricios", "Av Amancio Alcorta", 2544, 50, true, 0, 350000, 1000);
+		Casa casa = new Casa("Parque Patricios", "Av Amancio Alcorta", 2544, 50, true,true, 0, 350000, 1000);
+		Casa casa2 = new Casa("Parque Patricios", "Av Amancio Alcorta", 2544, 50, true,true, 0, 350000, 1000);
 
 
 		boolean seAgrego = inmobiliaria.agregarPropiedad(casa);
@@ -52,7 +55,7 @@ public class JunitTest {
 	@Test
 	public void queSePuedaDarDeAltaUnDepartamentoEnLaInmobiliaria() {
 		Inmobiliaria inmobiliaria = new Inmobiliaria("Boxer", "Barros Pasos 1758", 44538431);
-		Departamento dpto = new Departamento("Ramos Mejia", "Av. de Mayo", 7555, "A", 4, 25, true, 0, 70000, 200);
+		Departamento dpto = new Departamento("Ramos Mejia", "Av. de Mayo", 7555, "A", 4, 25, true,true, 0, 70000, 200);
 
 		boolean seAgrego = inmobiliaria.agregarPropiedad(dpto);
 
@@ -63,8 +66,8 @@ public class JunitTest {
 	@Test
 	public void queSePuedaDarDeAltaDosDepartamentoEnLaInmobiliaria() {
 		Inmobiliaria inmobiliaria = new Inmobiliaria("Boxer", "Barros Pasos 1758", 44538431);
-		Departamento dpto = new Departamento("Ramos Mejia", "Av. de Mayo", 7555, "A", 4, 25, true, 0, 70000, 200);
-		Departamento dpto2 = new Departamento("Ramos Mejia", "Av. de Mayo", 7555, "B", 4, 25, true, 0, 70000, 200);
+		Departamento dpto = new Departamento("Ramos Mejia", "Av. de Mayo", 7555, "A", 4, 25, true,true, 0, 70000, 200);
+		Departamento dpto2 = new Departamento("Ramos Mejia", "Av. de Mayo", 7555, "B", 4, 25, true,true, 0, 70000, 200);
 
 		boolean seAgrego = inmobiliaria.agregarPropiedad(dpto);
 		boolean seAgrego2 = inmobiliaria.agregarPropiedad(dpto2);
@@ -77,8 +80,8 @@ public class JunitTest {
 	@Test
 	public void queNoSePuedanDarDeAltaDosDepartamentoConUnaMismaDireccion() {
 		Inmobiliaria inmobiliaria = new Inmobiliaria("Boxer", "Barros Pasos 1758", 44538431);
-		Departamento dpto = new Departamento("Ramos Mejia", "Av. de Mayo", 7555, "A", 4, 25, true, 0, 70000, 200);
-		Departamento dpto2 = new Departamento("Ramos Mejia", "Av. de Mayo", 7555, "A", 4, 25, true, 0, 70000, 200);
+		Departamento dpto = new Departamento("Ramos Mejia", "Av. de Mayo", 7555, "A", 4, 25, true,true, 0, 70000, 200);
+		Departamento dpto2 = new Departamento("Ramos Mejia", "Av. de Mayo", 7555, "A", 4, 25, true,true, 0, 70000, 200);
 
 		inmobiliaria.agregarPropiedad(dpto);
 
@@ -91,9 +94,9 @@ public class JunitTest {
 	@Test
 	public void queSePuedaObtenerElValorPromedioDeLasCasas() {
 		Inmobiliaria inmobiliaria = new Inmobiliaria("Boxer", "Barros Pasos 1758", 44538431);
-		Departamento dpto = new Departamento("Ramos Mejia", "Av. de Mayo", 7555, "A", 4, 25, true, 0, 70000, 200);
-		Casa casa = new Casa("Parque Patricios", "Av Amancio Alcorta", 2544, 50, true, 0, 350000, 1000);
-		Casa casa2 = new Casa("Nuñez", "Av Pres Figueroa Alcorta", 7597, 70, true, 0, 150000, 300);
+		Departamento dpto = new Departamento("Ramos Mejia", "Av. de Mayo", 7555, "A", 4, 25, true,true, 0, 70000, 200);
+		Casa casa = new Casa("Parque Patricios", "Av Amancio Alcorta", 2544, 50, true,true, 0, 350000, 1000);
+		Casa casa2 = new Casa("Nuñez", "Av Pres Figueroa Alcorta", 7597, 70, true,true, 0, 150000, 300);
 
 
 		inmobiliaria.agregarPropiedad(casa);
@@ -108,9 +111,9 @@ public class JunitTest {
 	@Test
 	public void queSePuedaObtenerElValorPromedioDeLosDepartamentos() {
 		Inmobiliaria inmobiliaria = new Inmobiliaria("Boxer", "Barros Pasos 1758", 44538431);
-		Departamento dpto = new Departamento("Ramos Mejia", "Av. de Mayo", 7555, "A", 4, 25, true, 0, 50000, 200);
-		Departamento dpto2 = new Departamento("Ramos Mejia", "Av. de Mayo", 7555, "B", 4, 25, true, 0, 90000, 200);
-		Casa casa = new Casa("Parque Patricios", "Av Amancio Alcorta", 2544, 50, true, 0, 350000, 1000);
+		Departamento dpto = new Departamento("Ramos Mejia", "Av. de Mayo", 7555, "A", 4, 25, true,true, 0, 50000, 200);
+		Departamento dpto2 = new Departamento("Ramos Mejia", "Av. de Mayo", 7555, "B", 4, 25, true,true, 0, 90000, 200);
+		Casa casa = new Casa("Parque Patricios", "Av Amancio Alcorta", 2544, 50, true,true, 0, 350000, 1000);
 		inmobiliaria.agregarPropiedad(dpto);
 		inmobiliaria.agregarPropiedad(dpto2);
 		inmobiliaria.agregarPropiedad(casa);
@@ -124,8 +127,8 @@ public class JunitTest {
 	public void queLaBusquedaPorRangoDePrecioDeMeArrojeUnArrayNoNuloSiAplicanResultados() {
 		Inmobiliaria inmobiliaria = new Inmobiliaria("Boxer", "Barros Pasos 1758", 44538431);
 
-		Departamento dpto = new Departamento("Ramos Mejia", "Av. de Mayo", 7555, "A", 4, 25, true, 0, 50000, 200);
-		Departamento dpto2 = new Departamento("Ramos Mejia", "Av. de Mayo", 7555, "B", 4, 25, true, 0, 90000, 200);
+		Departamento dpto = new Departamento("Ramos Mejia", "Av. de Mayo", 7555, "A", 4, 25, true,true, 0, 50000, 200);
+		Departamento dpto2 = new Departamento("Ramos Mejia", "Av. de Mayo", 7555, "B", 4, 25, true,true, 0, 90000, 200);
 
 		inmobiliaria.agregarPropiedad(dpto);
 		inmobiliaria.agregarPropiedad(dpto2);
@@ -137,8 +140,8 @@ public class JunitTest {
 	public void queLaBusquedaPorRangoDePrecioDeCasasMeArrojeUnArrayNuloSiNoAplicanResultados() {
 		Inmobiliaria inmobiliaria = new Inmobiliaria("Boxer", "Barros Pasos 1758", 44538431);
 
-		Departamento dpto = new Departamento("Ramos Mejia", "Av. de Mayo", 7555, "A", 4, 25, true, 0, 50000, 200);
-		Departamento dpto2 = new Departamento("Ramos Mejia", "Av. de Mayo", 7555, "B", 4, 25, true, 0, 90000, 200);
+		Departamento dpto = new Departamento("Ramos Mejia", "Av. de Mayo", 7555, "A", 4, 25, true,true, 0, 50000, 200);
+		Departamento dpto2 = new Departamento("Ramos Mejia", "Av. de Mayo", 7555, "B", 4, 25, true,true, 0, 90000, 200);
 
 		inmobiliaria.agregarPropiedad(dpto);
 		inmobiliaria.agregarPropiedad(dpto2);
@@ -175,12 +178,12 @@ public class JunitTest {
 	public void queSeOrdenenPorPrecioLasPropiedades() {
 		Inmobiliaria inmobiliaria = new Inmobiliaria("Boxer", "Barros Pasos 1758", 44538431);
 
-		Departamento dpto = new Departamento("Ramos Mejia", "Av. de Mayo", 7555, "A", 4, 25, true, 0, 50000, 200);
-		Departamento dpto2 = new Departamento("Ramos Mejia", "Av. de Mayo", 7555, "B", 4, 25, true, 0, 90000, 200);
-		Casa casa = new Casa("Parque Patricios", "Av Amancio Alcorta", 2544, 50, true, 0, 350000, 1000);
-		Casa casa2 = new Casa("Nuñez", "Av Pres Figueroa Alcorta", 7597, 70, true, 0, 150000, 300);
-		Casa casa3 = new Casa("La Boca", "Brandsen", 805, 50, true, 0, 400000, 1000);
-		Casa casa4 = new Casa("Avellaneda", "Ricardo Enrique Bochini", 751, 70, true, 0, 100000, 300);
+		Departamento dpto = new Departamento("Ramos Mejia", "Av. de Mayo", 7555, "A", 4, 25, true,true, 0, 50000, 200);
+		Departamento dpto2 = new Departamento("Ramos Mejia", "Av. de Mayo", 7555, "B", 4, 25, true,true, 0, 90000, 200);
+		Casa casa = new Casa("Parque Patricios", "Av Amancio Alcorta", 2544, 50, true,true, 0, 350000, 1000);
+		Casa casa2 = new Casa("Nuñez", "Av Pres Figueroa Alcorta", 7597, 70, true,true, 0, 150000, 300);
+		Casa casa3 = new Casa("La Boca", "Brandsen", 805, 50, true,true, 0, 400000, 1000);
+		Casa casa4 = new Casa("Avellaneda", "Ricardo Enrique Bochini", 751, 70, true,true, 0, 100000, 300);
 		
 		inmobiliaria.agregarPropiedad(casa);
 		inmobiliaria.agregarPropiedad(casa2);
@@ -198,12 +201,12 @@ public class JunitTest {
 	public void queSeOrdenenPorUbicacionLasPropiedades() {
 		Inmobiliaria inmobiliaria = new Inmobiliaria("Boxer", "Barros Pasos 1758", 44538431);
 
-		Departamento dpto = new Departamento("Ramos Mejia", "Av. de Mayo", 7555, "A", 4, 25, true, 0, 50000, 200);
-		Departamento dpto2 = new Departamento("Ramos Mejia", "Av. de Mayo", 7555, "B", 4, 25, true, 0, 90000, 200);
-		Casa casa = new Casa("Parque Patricios", "Av Amancio Alcorta", 2544, 50, true, 0, 350000, 1000);
-		Casa casa2 = new Casa("Nuñez", "Av Pres Figueroa Alcorta", 7597, 70, true, 0, 150000, 300);
-		Casa casa3 = new Casa("La Boca", "Brandsen", 805, 50, true, 0, 400000, 1000);
-		Casa casa4 = new Casa("Avellaneda", "Ricardo Enrique Bochini", 751, 70, true, 0, 100000, 300);
+		Departamento dpto = new Departamento("Ramos Mejia", "Av. de Mayo", 7555, "A", 4, 25, true,true, 0, 50000, 200);
+		Departamento dpto2 = new Departamento("Ramos Mejia", "Av. de Mayo", 7555, "B", 4, 25, true,true, 0, 90000, 200);
+		Casa casa = new Casa("Parque Patricios", "Av Amancio Alcorta", 2544, 50, true,true, 0, 350000, 1000);
+		Casa casa2 = new Casa("Nuñez", "Av Pres Figueroa Alcorta", 7597, 70, true,true, 0, 150000, 300);
+		Casa casa3 = new Casa("La Boca", "Brandsen", 805, 50, true,true, 0, 400000, 1000);
+		Casa casa4 = new Casa("Avellaneda", "Ricardo Enrique Bochini", 751, 70, true,true, 0, 100000, 300);
 		
 		inmobiliaria.agregarPropiedad(casa);
 		inmobiliaria.agregarPropiedad(casa2);
@@ -222,12 +225,12 @@ public class JunitTest {
 	public void queSePuedaComprarUnaPropiedad() {
 		
 		Inmobiliaria inmobiliaria = new Inmobiliaria("Boxer", "Barros Pasos 1758", 44538431);
-		Departamento dpto = new Departamento("Ramos Mejia", "Av. de Mayo", 7555, "A", 4, 25, true, 0, 50000, 200);
-		Departamento dpto2 = new Departamento("Ramos Mejia", "Av. de Mayo", 7555, "B", 4, 25, true, 0, 90000, 200);
-		Casa casa = new Casa("Parque Patricios", "Av Amancio Alcorta", 2544, 50, true, 0, 350000, 1000);
-		Casa casa2 = new Casa("Nuñez", "Av Pres Figueroa Alcorta", 7597, 70, true, 0, 150000, 300);
-		Casa casa3 = new Casa("La Boca", "Brandsen", 805, 50, true, 0, 400000, 1000);
-		Casa casa4 = new Casa("Avellaneda", "Ricardo Enrique Bochini", 751, 70, true, 0, 100000, 300);
+		Departamento dpto = new Departamento("Ramos Mejia", "Av. de Mayo", 7555, "A", 4, 25, true,true, 0, 50000, 200);
+		Departamento dpto2 = new Departamento("Ramos Mejia", "Av. de Mayo", 7555, "B", 4, 25, true,true, 0, 90000, 200);
+		Casa casa = new Casa("Parque Patricios", "Av Amancio Alcorta", 2544, 50, true,true, 0, 350000, 1000);
+		Casa casa2 = new Casa("Nuñez", "Av Pres Figueroa Alcorta", 7597, 70, true,true, 0, 150000, 300);
+		Casa casa3 = new Casa("La Boca", "Brandsen", 805, 50, true,true, 0, 400000, 1000);
+		Casa casa4 = new Casa("Avellaneda", "Ricardo Enrique Bochini", 751, 70, true,true, 0, 100000, 300);
 		
 		Cliente cliente = new Cliente("Jose Luis", "Rodriguez", 44513673, 200000, 1166668099);
 		
@@ -243,7 +246,7 @@ public class JunitTest {
 		double dineroEsperado = 150000;
 		
 		assertEquals(dineroEsperado, cliente.getDinero(),0.1);
-		assertFalse(dpto.isEstaDisponible());
+		assertFalse(dpto.isEstaDisponibleVenta());
 		
 		
 		
@@ -252,7 +255,7 @@ public class JunitTest {
 	@Test
 	public void queNoSePuedaComprarUnaPropiedadSiClienteNoTieneDineroSuficiente() {
 		Inmobiliaria inmobiliaria = new Inmobiliaria("Boxer", "Barros Pasos 1758", 44538431);
-		Departamento dpto = new Departamento("Ramos Mejia", "Av. de Mayo", 7555, "A", 4, 25, true, 0, 50000, 200);
+		Departamento dpto = new Departamento("Ramos Mejia", "Av. de Mayo", 7555, "A", 4, 25, true,true, 0, 50000, 200);
 		
 		Cliente cliente = new Cliente("Jose Luis", "Rodriguez", 44513673, 40000, 1166668099);
 		
@@ -263,18 +266,18 @@ public class JunitTest {
 		double dineroEsperado = 40000;
 		
 		assertEquals(dineroEsperado, cliente.getDinero(),0.1);
-		assertTrue(dpto.isEstaDisponible());
+		assertTrue(dpto.isEstaDisponibleVenta());
 	}
 	@Test
 	public void queSePuedaAlquilarUnaPropiedad() {
 		
 		Inmobiliaria inmobiliaria = new Inmobiliaria("Boxer", "Barros Pasos 1758", 44538431);
-		Departamento dpto = new Departamento("Ramos Mejia", "Av. de Mayo", 7555, "A", 4, 25, true, 0, 50000, 200);
-		Departamento dpto2 = new Departamento("Ramos Mejia", "Av. de Mayo", 7555, "B", 4, 25, true, 0, 90000, 200);
-		Casa casa = new Casa("Parque Patricios", "Av Amancio Alcorta", 2544, 50, true, 0, 350000, 1000);
-		Casa casa2 = new Casa("Nuñez", "Av Pres Figueroa Alcorta", 7597, 70, true, 0, 150000, 300);
-		Casa casa3 = new Casa("La Boca", "Brandsen", 805, 50, true, 0, 400000, 1000);
-		Casa casa4 = new Casa("Avellaneda", "Ricardo Enrique Bochini", 751, 70, true, 0, 100000, 300);
+		Departamento dpto = new Departamento("Ramos Mejia", "Av. de Mayo", 7555, "A", 4, 25, true,true, 0, 50000, 200);
+		Departamento dpto2 = new Departamento("Ramos Mejia", "Av. de Mayo", 7555, "B", 4, 25, true,true, 0, 90000, 200);
+		Casa casa = new Casa("Parque Patricios", "Av Amancio Alcorta", 2544, 50, true,true, 0, 350000, 1000);
+		Casa casa2 = new Casa("Nuñez", "Av Pres Figueroa Alcorta", 7597, 70, true,true, 0, 150000, 300);
+		Casa casa3 = new Casa("La Boca", "Brandsen", 805, 50, true,true, 0, 400000, 1000);
+		Casa casa4 = new Casa("Avellaneda", "Ricardo Enrique Bochini", 751, 70, true,true, 0, 100000, 300);
 		
 		Cliente cliente = new Cliente("Jose Luis", "Rodriguez", 44513673, 1000, 1166668099);
 		
@@ -290,11 +293,64 @@ public class JunitTest {
 		double dineroEsperado = 700;
 		
 		assertEquals(dineroEsperado, cliente.getDinero(),0.1);
-		assertFalse(casa2.isEstaDisponible());
+		assertFalse(casa2.isEstaDisponibleAlquiler());
+			
+	}
+	@Test
+	public void queLaBusquedaDePropiedadesPorVentaMeArrojeUnaLista() {
+		Inmobiliaria inmobiliaria = new Inmobiliaria("Boxer", "Barros Pasos 1758", 44538431);
+		Departamento dpto = new Departamento("Ramos Mejia", "Av. de Mayo", 7555, "A", 4, 25, true,true, 0, 50000, 200);
+		Departamento dpto2 = new Departamento("Ramos Mejia", "Av. de Mayo", 7555, "B", 4, 25, true,true, 0, 90000, 200);
+		Casa casa = new Casa("Parque Patricios", "Av Amancio Alcorta", 2544, 50, true,true, 0, 350000, 1000);
+		Casa casa2 = new Casa("Nuñez", "Av Pres Figueroa Alcorta", 7597, 70, true,true, 0, 150000, 300);
+		Casa casa3 = new Casa("La Boca", "Brandsen", 805, 50, true,true, 0, 400000, 1000);
+		Casa casa4 = new Casa("Avellaneda", "Ricardo Enrique Bochini", 751, 70, true,true, 0, 100000, 300);
 		
 		
+		
+		inmobiliaria.agregarPropiedad(casa);
+		inmobiliaria.agregarPropiedad(casa2);
+		inmobiliaria.agregarPropiedad(dpto);
+		inmobiliaria.agregarPropiedad(dpto2);
+		inmobiliaria.agregarPropiedad(casa3);
+		inmobiliaria.agregarPropiedad(casa4);
+		
+		assertNotNull(inmobiliaria.obtenerListadoVenta());
 		
 		
 	}
-
+	@Test
+	public void queLaBusquedaDePropiedadesPorVentaMeArrojeUnaListaNuloSiNoAplicanResultados() {
+		Inmobiliaria inmobiliaria = new Inmobiliaria("Boxer", "Barros Pasos 1758", 44538431);
+		Departamento dpto = new Departamento("Ramos Mejia", "Av. de Mayo", 7555, "A", 4, 25, true,true, 0, 50000, 200);
+		Departamento dpto2 = new Departamento("Ramos Mejia", "Av. de Mayo", 7555, "B", 4, 25, true,true, 0, 90000, 200);
+		Casa casa = new Casa("Parque Patricios", "Av Amancio Alcorta", 2544, 50, true,true, 0, 350000, 1000);
+		Casa casa2 = new Casa("Nuñez", "Av Pres Figueroa Alcorta", 7597, 70, true,true, 0, 150000, 300);
+		Casa casa3 = new Casa("La Boca", "Brandsen", 805, 50, true,true, 0, 400000, 1000);
+		Casa casa4 = new Casa("Avellaneda", "Ricardo Enrique Bochini", 751, 70, true,true, 0, 100000, 300);
+		Cliente cliente = new Cliente("Jose Luis", "Rodriguez", 44513673, 1000000000, 1166668099);
+		
+		
+		inmobiliaria.agregarPropiedad(casa);
+		inmobiliaria.agregarPropiedad(casa2);
+		inmobiliaria.agregarPropiedad(dpto);
+		inmobiliaria.agregarPropiedad(dpto2);
+		inmobiliaria.agregarPropiedad(casa3);
+		inmobiliaria.agregarPropiedad(casa4);
+		
+		inmobiliaria.ventaPropiedad(1, cliente);
+		inmobiliaria.ventaPropiedad(2, cliente);
+		inmobiliaria.ventaPropiedad(3, cliente);
+		inmobiliaria.ventaPropiedad(4, cliente);
+		inmobiliaria.ventaPropiedad(5, cliente);
+		inmobiliaria.ventaPropiedad(6, cliente);
+		
+		
+		assertNull(inmobiliaria.obtenerListadoVenta());
+		
+	}
+	
 }
+
+
+

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 
+
+
 public class Inmobiliaria {
 
 	private String nombre;
@@ -11,6 +13,7 @@ public class Inmobiliaria {
 	private Integer numTelefono;
 	private ArrayList<Propiedad> propiedades;
 	private HashSet<Cliente> clientes;
+	private static final Double UMBRAL_MINIMO = 10000.0;
 
 	public Inmobiliaria(String nombre, String direccion, Integer numTelefono) {
 
@@ -53,7 +56,6 @@ public class Inmobiliaria {
 		this.propiedades = propiedades;
 	}
 
-
 	public HashSet<Cliente> getClientes() {
 		return clientes;
 	}
@@ -62,37 +64,17 @@ public class Inmobiliaria {
 		this.clientes = clientes;
 	}
 
-	public boolean agregarPropiedad(Propiedad propiedadNueva) {
-
-		if (propiedadNueva instanceof Departamento) {
-
-			Departamento deptoNueva = (Departamento) propiedadNueva;
-			for (Propiedad propiedadExistente : propiedades) {
-				if (propiedadExistente instanceof Departamento) {
-					Departamento deptoExistente = (Departamento) propiedadExistente;
-					if (deptoNueva.getCiudad().equals(deptoExistente.getCiudad())
-							&& deptoNueva.getCalle().equals(deptoExistente.getCalle())
-							&& deptoNueva.getAltura().equals(deptoExistente.getAltura())
-							&& deptoNueva.getLetraDepto().equals(deptoExistente.getLetraDepto())
-							&& deptoNueva.getPiso().equals(deptoExistente.getPiso())) {
-						System.err.println(
-								"¡No se puede ingresar una propiedad con la misma direccion de las que ya estan agregadas!");
-						return false;
-					}
-				}
-			}
+	public boolean agregarPropiedadExeption(Propiedad propiedadNueva) throws UmbralMinimoException {
+		if (propiedadNueva.getPrecioVenta() < UMBRAL_MINIMO) {
+			throw new UmbralMinimoException("Umbral Minimo no superado");
 		} else {
-
-			for (Propiedad propiedadExistente : propiedades) {
-				if (propiedadNueva.getCiudad().equals(propiedadExistente.getCiudad())
-						&& propiedadNueva.getCalle().equals(propiedadExistente.getCalle())
-						&& propiedadNueva.getAltura().equals(propiedadExistente.getAltura())) {
-					System.err.println(
-							"¡No se puede ingresar una propiedad con la misma direccion de las que ya estan agregadas!");
-					return false;
-				}
-			}
+			propiedades.add(propiedadNueva);
+			propiedadNueva.setCodigo(propiedades.size());
+			return true;
 		}
+	}
+
+	public boolean agregarPropiedad(Propiedad propiedadNueva) {
 
 		propiedades.add(propiedadNueva);
 		propiedadNueva.setCodigo(propiedades.size());
@@ -141,7 +123,7 @@ public class Inmobiliaria {
 
 	public ArrayList<Propiedad> ordenarListadoPorUbicacion() {
 
-		Collections.sort(propiedades, (Propiedad p1, Propiedad p2) -> p1.getCiudad().compareTo(p2.getCiudad()));
+		Collections.sort(propiedades, new OrdenarPorUbicacion());
 		return propiedades;
 	}
 
@@ -181,33 +163,53 @@ public class Inmobiliaria {
 
 	}
 
-	public ArrayList<Propiedad> obtenerListadoRangoPrecio(double precioMin, double precioMax) {
+	public ArrayList<Propiedad> obtenerListadoRangoPrecioDeLasCasas(double precioMin, double precioMax) {
 		ArrayList<Propiedad> propiedadesListado = new ArrayList<Propiedad>();
-
+		ordenarListadoPorPrecio();
 		for (Propiedad propiedadesExistentes : propiedades) {
-			if (propiedadesExistentes.getPrecioVenta() >= precioMin
-					&& propiedadesExistentes.getPrecioVenta() <= precioMax) {
-				propiedadesListado.add(propiedadesExistentes);
-				
-			} 
+			if (propiedadesExistentes instanceof Casa)
+				if (propiedadesExistentes.getPrecioVenta() >= precioMin
+						&& propiedadesExistentes.getPrecioVenta() <= precioMax) {
+					propiedadesListado.add(propiedadesExistentes);
+
+				}
 		}
 		if (propiedadesListado.isEmpty()) {
 			return null;
 		} else {
 			return propiedadesListado;
 		}
-		
 
 	}
 
-	public ArrayList<Propiedad> obtenerListadoUbicacion(String ubicacion) {
+	public ArrayList<Propiedad> obtenerListadoRangoPrecioDeLosDptos(double precioMin, double precioMax) {
 		ArrayList<Propiedad> propiedadesListado = new ArrayList<Propiedad>();
-
+		ordenarListadoPorPrecio();
 		for (Propiedad propiedadesExistentes : propiedades) {
-			if (propiedadesExistentes.getCiudad().equalsIgnoreCase(ubicacion)) {
-				propiedadesListado.add(propiedadesExistentes);
+			if (propiedadesExistentes instanceof Departamento)
+				if (propiedadesExistentes.getPrecioVenta() >= precioMin
+						&& propiedadesExistentes.getPrecioVenta() <= precioMax) {
+					propiedadesListado.add(propiedadesExistentes);
 
-			}
+				}
+		}
+		if (propiedadesListado.isEmpty()) {
+			return null;
+		} else {
+			return propiedadesListado;
+		}
+
+	}
+
+	public ArrayList<Propiedad> obtenerListadoUbicacionDeLasCasas(String ubicacion) {
+		ArrayList<Propiedad> propiedadesListado = new ArrayList<Propiedad>();
+		ordenarListadoPorUbicacion();
+		for (Propiedad propiedadesExistentes : propiedades) {
+			if (propiedadesExistentes instanceof Casa)
+				if (propiedadesExistentes.getCiudad().equalsIgnoreCase(ubicacion)) {
+					propiedadesListado.add(propiedadesExistentes);
+
+				}
 		}
 		if (propiedadesListado.isEmpty()) {
 			return null;
@@ -216,10 +218,27 @@ public class Inmobiliaria {
 		}
 	}
 
-	public ArrayList<Propiedad>obtenerListadoVenta(){
- 
+	public ArrayList<Propiedad> obtenerListadoUbicacionDeLosDeptos(String ubicacion) {
 		ArrayList<Propiedad> propiedadesListado = new ArrayList<Propiedad>();
-		
+		ordenarListadoPorUbicacion();
+		for (Propiedad propiedadesExistentes : propiedades) {
+			if (propiedadesExistentes instanceof Departamento)
+				if (propiedadesExistentes.getCiudad().equalsIgnoreCase(ubicacion)) {
+					propiedadesListado.add(propiedadesExistentes);
+
+				}
+		}
+		if (propiedadesListado.isEmpty()) {
+			return null;
+		} else {
+			return propiedadesListado;
+		}
+	}
+
+	public ArrayList<Propiedad> obtenerListadoVenta() {
+
+		ArrayList<Propiedad> propiedadesListado = new ArrayList<Propiedad>();
+
 		for (Propiedad propiedadesExistentes : propiedades) {
 			if (propiedadesExistentes.isEstaDisponibleVenta()) {
 				propiedadesListado.add(propiedadesExistentes);
@@ -231,10 +250,11 @@ public class Inmobiliaria {
 			return propiedadesListado;
 		}
 	}
-	public ArrayList<Propiedad>obtenerListadoAlquiler(){
-		 
+
+	public ArrayList<Propiedad> obtenerListadoAlquiler() {
+
 		ArrayList<Propiedad> propiedadesListado = new ArrayList<Propiedad>();
-		
+
 		for (Propiedad propiedadesExistentes : propiedades) {
 			if (propiedadesExistentes.isEstaDisponibleAlquiler()) {
 				propiedadesListado.add(propiedadesExistentes);
@@ -293,4 +313,58 @@ public class Inmobiliaria {
 		}
 	}
 
+	public void permutaPropiedad(int codigoPropiedadX, int codigoPropiedadY) {
+		Propiedad propiedadX = null;
+		Propiedad propiedadY = null;
+		boolean propiedadEncontradaX = false;
+		boolean propiedadEncontradaY = false;
+
+		for (Propiedad propiedad : propiedades) {
+			if (propiedad.getCodigo() == codigoPropiedadX) {
+				propiedadX = propiedad;
+				propiedadEncontradaX = true;
+			}
+			if (propiedad.getCodigo() == codigoPropiedadY) {
+				propiedadY = propiedad;
+				propiedadEncontradaY = true;
+			}
+		}
+		if (propiedadX != null && propiedadY != null) {
+			Cliente dueñoX = propiedadX.getDueño();
+			Cliente dueñoY = propiedadY.getDueño();
+
+			propiedadX.setDueño(dueñoY);
+			propiedadY.setDueño(dueñoX);
+		}
+
+		if (propiedadEncontradaX == false && propiedadEncontradaY == false) {
+			System.err.println("Los codigos no coinciden con las propiedades a permutar");
+		}
+	}
+	public ArrayList<Propiedad> buscarPropiedadesPorCiudadException(String atributo) throws SinResultadosException {
+		ArrayList<Propiedad> propiedadesListado = new ArrayList<Propiedad>();
+		
+		for (Propiedad propiedad : propiedades) {
+			if (propiedad.getCiudad().equalsIgnoreCase(atributo)) {
+				propiedadesListado.add(propiedad);
+			}
+		}
+		if (propiedadesListado.isEmpty()) {
+			throw new SinResultadosException("No hay propiedades que coincidan con el atributo");
+		}
+		return propiedadesListado;
+	}
+	public ArrayList<Propiedad> buscarPropiedadesPorPrecioException(Double atributo) throws SinResultadosException {
+		ArrayList<Propiedad> propiedadesListado = new ArrayList<Propiedad>();
+		
+		for (Propiedad propiedad : propiedades) {
+			if (propiedad.getPrecioVenta().equals(atributo)) {
+				propiedadesListado.add(propiedad);
+			}
+		}
+		if (propiedadesListado.isEmpty()) {
+			throw new SinResultadosException("No hay propiedades que coincidan con el atributo");
+		}
+		return propiedadesListado;
+	}
 }

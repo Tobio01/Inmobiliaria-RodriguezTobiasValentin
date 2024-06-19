@@ -5,12 +5,13 @@ public class Departamento extends Propiedad {
 	private Integer piso;
 
 	public Departamento(String ciudad, String calle, Integer altura, String letraDepto, Integer piso,
-			double mtsCuadrados, boolean estaDisponibleVenta, boolean estaDisponibleAlquiler, Integer codigo, double precioVenta, double precioAlquiler) {
-		super(ciudad, calle, altura, mtsCuadrados, estaDisponibleVenta, estaDisponibleAlquiler, codigo, precioVenta, precioAlquiler);
+			double mtsCuadrados, boolean estaDisponibleVenta, boolean estaDisponibleAlquiler, Integer codigo,
+			double precioVenta, double precioAlquiler, Cliente dueño) {
+		super(ciudad, calle, altura, mtsCuadrados, estaDisponibleVenta, estaDisponibleAlquiler, codigo, precioVenta,
+				precioAlquiler, dueño);
 
 		this.letraDepto = letraDepto;
 		this.piso = piso;
-
 	}
 
 	public String getLetraDepto() {

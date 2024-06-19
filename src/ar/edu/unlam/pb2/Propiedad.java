@@ -1,6 +1,6 @@
 package ar.edu.unlam.pb2;
 
-public class Propiedad implements Comparable<Propiedad> {
+public abstract class Propiedad implements Comparable<Propiedad> {
 
 	protected String ciudad;
 	protected String calle;
@@ -9,11 +9,12 @@ public class Propiedad implements Comparable<Propiedad> {
 	protected Integer codigo;
 	protected boolean estaDisponibleVenta;
 	protected boolean estaDisponibleAlquiler;
-	protected double precioVenta;
+	protected Double precioVenta;
 	protected double precioAlquiler;
+	protected Cliente dueño;
 
 	public Propiedad(String ciudad, String calle, Integer altura, double mtsCuadrados, boolean estaDisponibleVenta,
-			boolean estaDisponibleAlquiler, Integer codigo, double precioVenta, double precioAlquiler) {
+			boolean estaDisponibleAlquiler, Integer codigo, Double precioVenta, double precioAlquiler, Cliente dueño) {
 
 		this.ciudad = ciudad;
 		this.calle = calle;
@@ -24,6 +25,7 @@ public class Propiedad implements Comparable<Propiedad> {
 		this.estaDisponibleAlquiler = true;
 		this.precioAlquiler = precioAlquiler;
 		this.precioVenta = precioVenta;
+		this.dueño = dueño;
 	}
 
 	public String getCiudad() {
@@ -82,11 +84,11 @@ public class Propiedad implements Comparable<Propiedad> {
 		this.estaDisponibleAlquiler = estaDisponibleAlquiler;
 	}
 
-	public double getPrecioVenta() {
+	public Double getPrecioVenta() {
 		return precioVenta;
 	}
 
-	public void setPrecioVenta(double precioVenta) {
+	public void setPrecioVenta(Double precioVenta) {
 		this.precioVenta = precioVenta;
 	}
 
@@ -96,6 +98,15 @@ public class Propiedad implements Comparable<Propiedad> {
 
 	public void setPrecioAlquiler(double precioAlquiler) {
 		this.precioAlquiler = precioAlquiler;
+	}
+	
+
+	public Cliente getDueño() {
+		return dueño;
+	}
+
+	public void setDueño(Cliente dueño) {
+		this.dueño = dueño;
 	}
 
 	@Override

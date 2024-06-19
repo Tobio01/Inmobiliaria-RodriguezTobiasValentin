@@ -337,7 +337,7 @@ public class Inmobiliaria {
 			propiedadY.setDueño(dueñoX);
 		}
 
-		if (propiedadEncontradaX == false && propiedadEncontradaY == false) {
+		if (propiedadEncontradaX == false || propiedadEncontradaY == false) {
 			System.err.println("Los codigos no coinciden con las propiedades a permutar");
 		}
 	}

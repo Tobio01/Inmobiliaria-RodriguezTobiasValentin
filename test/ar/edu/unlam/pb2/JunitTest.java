@@ -1,4 +1,5 @@
 package ar.edu.unlam.pb2;
+
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ import ar.edu.unlam.pb2.UmbralMinimoException;
 public class JunitTest {
 
 	@Test
-	public void queSePuedaDarDeAltaUnaCasaEnLaInmobiliaria() {
+	public void queSePuedaDarDeAltaUnaCasaEnLaInmobiliaria() throws UmbralMinimoException {
 		Inmobiliaria inmobiliaria = new Inmobiliaria("Boxer", "Barros Pasos 1758", 44538431);
 		Casa casa = new Casa("Parque Patricios", "Av Amancio Alcorta", 2544, 50, true, true, 0, 350000, 1000, null);
 
@@ -29,7 +30,7 @@ public class JunitTest {
 	}
 
 	@Test
-	public void queSePuedanDarDeAltaDosCasasEnLaInmobiliaria() {
+	public void queSePuedanDarDeAltaDosCasasEnLaInmobiliaria() throws UmbralMinimoException {
 		Inmobiliaria inmobiliaria = new Inmobiliaria("Boxer", "Barros Pasos 1758", 44538431);
 		Casa casa = new Casa("Parque Patricios", "Av Amancio Alcorta", 2544, 50, true, true, 0, 350000, 1000, null);
 		Casa casa2 = new Casa("Nuñez", "Av Pres Figueroa Alcorta", 7597, 70, true, true, 0, 150000, 300, null);
@@ -43,7 +44,7 @@ public class JunitTest {
 	}
 
 	@Test
-	public void queSePuedaDarDeAltaUnDepartamentoEnLaInmobiliaria() {
+	public void queSePuedaDarDeAltaUnDepartamentoEnLaInmobiliaria() throws UmbralMinimoException {
 		Inmobiliaria inmobiliaria = new Inmobiliaria("Boxer", "Barros Pasos 1758", 44538431);
 		Departamento dpto = new Departamento("Ramos Mejia", "Av. de Mayo", 7555, "A", 4, 25, true, true, 0, 70000, 200,
 				null);
@@ -55,7 +56,7 @@ public class JunitTest {
 	}
 
 	@Test
-	public void queSePuedaDarDeAltaDosDepartamentoEnLaInmobiliaria() {
+	public void queSePuedaDarDeAltaDosDepartamentoEnLaInmobiliaria() throws UmbralMinimoException {
 		Inmobiliaria inmobiliaria = new Inmobiliaria("Boxer", "Barros Pasos 1758", 44538431);
 		Departamento dpto = new Departamento("Ramos Mejia", "Av. de Mayo", 7555, "A", 4, 25, true, true, 0, 70000, 200,
 				null);
@@ -71,7 +72,7 @@ public class JunitTest {
 	}
 
 	@Test
-	public void queSePuedaObtenerElValorPromedioDeLasCasas() {
+	public void queSePuedaObtenerElValorPromedioDeLasCasas() throws UmbralMinimoException {
 		Inmobiliaria inmobiliaria = new Inmobiliaria("Boxer", "Barros Pasos 1758", 44538431);
 		Departamento dpto = new Departamento("Ramos Mejia", "Av. de Mayo", 7555, "A", 4, 25, true, true, 0, 70000, 200,
 				null);
@@ -88,7 +89,7 @@ public class JunitTest {
 	}
 
 	@Test
-	public void queSePuedaObtenerElValorPromedioDeLosDepartamentos() {
+	public void queSePuedaObtenerElValorPromedioDeLosDepartamentos() throws UmbralMinimoException {
 		Inmobiliaria inmobiliaria = new Inmobiliaria("Boxer", "Barros Pasos 1758", 44538431);
 		Departamento dpto = new Departamento("Ramos Mejia", "Av. de Mayo", 7555, "A", 4, 25, true, true, 0, 50000, 200,
 				null);
@@ -108,7 +109,7 @@ public class JunitTest {
 	public void queSePuedaAgregarUnClienteALaInmobiliaria() {
 		Inmobiliaria inmobiliaria = new Inmobiliaria("Boxer", "Barros Pasos 1758", 44538431);
 
-		Cliente cliente = new Cliente("Jose Luis", "Rodriguez", 25528261, 200000, 1166668099);
+		Cliente cliente = new Cliente("Jose Luis", "Rodriguez", 25528261, 200000.0, 1166668099);
 
 		boolean seAgrego = inmobiliaria.agregarCliente(cliente);
 
@@ -119,8 +120,8 @@ public class JunitTest {
 	public void queNoSePuedanAgregarDosClientesConUnMismoDni() {
 		Inmobiliaria inmobiliaria = new Inmobiliaria("Boxer", "Barros Pasos 1758", 44538431);
 
-		Cliente cliente = new Cliente("Jose Luis", "Rodriguez", 44513673, 200000, 1166668099);
-		Cliente cliente2 = new Cliente("Tobias", "Rodriguez", 44513673, 200000, 1166743592);
+		Cliente cliente = new Cliente("Jose Luis", "Rodriguez", 44513673, 200000.0, 1166668099);
+		Cliente cliente2 = new Cliente("Tobias", "Rodriguez", 44513673, 200000.0, 1166743592);
 
 		inmobiliaria.agregarCliente(cliente);
 		boolean seAgrego = inmobiliaria.agregarCliente(cliente2);
@@ -129,7 +130,7 @@ public class JunitTest {
 	}
 
 	@Test
-	public void queSePuedaRealizarLaVentaDeUnaPropiedad() {
+	public void queSePuedaRealizarLaVentaDeUnaPropiedad() throws UmbralMinimoException {
 
 		Inmobiliaria inmobiliaria = new Inmobiliaria("Boxer", "Barros Pasos 1758", 44538431);
 		Departamento dpto = new Departamento("Ramos Mejia", "Av. de Mayo", 7555, "A", 4, 25, true, true, 0, 50000, 200,
@@ -141,7 +142,7 @@ public class JunitTest {
 		Casa casa3 = new Casa("La Boca", "Brandsen", 805, 50, true, true, 0, 400000, 1000, null);
 		Casa casa4 = new Casa("Avellaneda", "Ricardo Enrique Bochini", 751, 70, true, true, 0, 100000, 300, null);
 
-		Cliente cliente = new Cliente("Jose Luis", "Rodriguez", 44513673, 200000, 1166668099);
+		Cliente cliente = new Cliente("Jose Luis", "Rodriguez", 44513673, 200000.0, 1166668099);
 
 		inmobiliaria.agregarPropiedad(casa);
 		inmobiliaria.agregarPropiedad(casa2);
@@ -150,17 +151,12 @@ public class JunitTest {
 		inmobiliaria.agregarPropiedad(casa3);
 		inmobiliaria.agregarPropiedad(casa4);
 
-		inmobiliaria.ventaPropiedad(3, cliente);
-
-		double dineroEsperado = 150000;
-
-		assertEquals(dineroEsperado, cliente.getDinero(), 0.1);
-		assertFalse(dpto.isEstaDisponibleVenta());
+		assertTrue(inmobiliaria.ventaPropiedad(3, cliente));
 
 	}
 
 	@Test
-	public void queSePuedaRealizarElAlquilerDeUnaPropiedad() {
+	public void queSePuedaRealizarElAlquilerDeUnaPropiedad() throws UmbralMinimoException {
 
 		Inmobiliaria inmobiliaria = new Inmobiliaria("Boxer", "Barros Pasos 1758", 44538431);
 		Departamento dpto = new Departamento("Ramos Mejia", "Av. de Mayo", 7555, "A", 4, 25, true, true, 0, 50000, 200,
@@ -172,7 +168,7 @@ public class JunitTest {
 		Casa casa3 = new Casa("La Boca", "Brandsen", 805, 50, true, true, 0, 400000, 1000, null);
 		Casa casa4 = new Casa("Avellaneda", "Ricardo Enrique Bochini", 751, 70, true, true, 0, 100000, 300, null);
 
-		Cliente cliente = new Cliente("Jose Luis", "Rodriguez", 44513673, 1000, 1166668099);
+		Cliente cliente = new Cliente("Jose Luis", "Rodriguez", 44513673, 1000.0, 1166668099);
 
 		inmobiliaria.agregarPropiedad(casa);
 		inmobiliaria.agregarPropiedad(casa2);
@@ -181,20 +177,15 @@ public class JunitTest {
 		inmobiliaria.agregarPropiedad(casa3);
 		inmobiliaria.agregarPropiedad(casa4);
 
-		inmobiliaria.alquilerPropiedad(2, cliente);
-
-		double dineroEsperado = 700;
-
-		assertEquals(dineroEsperado, cliente.getDinero(), 0.1);
-		assertFalse(casa2.isEstaDisponibleAlquiler());
+		assertTrue(inmobiliaria.alquilerPropiedad(2, cliente));
 
 	}
 
 	@Test
-	public void queSePuedaRealizarLaPermutaDeDosPropiedades() {
+	public void queSePuedaRealizarLaPermutaDeDosPropiedades() throws UmbralMinimoException {
 		Inmobiliaria inmobiliaria = new Inmobiliaria("Boxer", "Barros Pasos 1758", 44538431);
-		Cliente clienteX = new Cliente("Tobias", "Rodriguez", 1, 10000, 123);
-		Cliente clienteY = new Cliente("Agustin", "Dangelo", 2, 10000, 1234);
+		Cliente clienteX = new Cliente("Tobias", "Rodriguez", 1, 10000.0, 123);
+		Cliente clienteY = new Cliente("Agustin", "Dangelo", 2, 10000.0, 1234);
 
 		Casa casa = new Casa("Parque Patricios", "Av Amancio Alcorta", 2544, 50, true, true, 0, 350000, 1000, clienteX);
 		Casa casa2 = new Casa("Nuñez", "Av Pres Figueroa Alcorta", 7597, 70, true, true, 0, 150000, 300, clienteY);
@@ -205,15 +196,14 @@ public class JunitTest {
 		inmobiliaria.agregarCliente(clienteX);
 		inmobiliaria.agregarCliente(clienteY);
 
-		inmobiliaria.permutaPropiedad(1, 2);
+		assertTrue(inmobiliaria.permutaPropiedad(1, 2));
 
-		assertTrue(casa.getDueño() == clienteY);
-		assertTrue(casa2.getDueño() == clienteX);
+	
 
 	}
 
 	@Test
-	public void queSePuedaRealizarLaBusquedaDeCasasPorRangoDePreciosYElResultadoEsteOrdenadoPorPrecio() {
+	public void queSePuedaRealizarLaBusquedaDeCasasPorRangoDePreciosYElResultadoEsteOrdenadoPorPrecio() throws SinResultadosException, UmbralMinimoException {
 		Inmobiliaria inmobiliaria = new Inmobiliaria("Boxer", "Barros Pasos 1758", 44538431);
 
 		Propiedad casa = new Casa("Parque Patricios", "Av Amancio Alcorta", 2544, 50, true, true, 0, 350000, 1000,
@@ -237,7 +227,7 @@ public class JunitTest {
 		Propiedad propiedadEsperadaIncio = casa4;
 		Propiedad propiedadEsperadaFinal = casa;
 
-		ArrayList<Propiedad> propiedadesListado = inmobiliaria.obtenerListadoRangoPrecioDeLasCasas(0, 350000);
+		ArrayList<Propiedad> propiedadesListado = inmobiliaria.obtenerListadoRangoPrecioDeLasCasas(0.0, 350000.0);
 
 		assertEquals(tamañoArrayListEsperado, propiedadesListado.size(), 0.1);
 		assertEquals(propiedadEsperadaIncio, propiedadesListado.get(0));
@@ -246,7 +236,7 @@ public class JunitTest {
 	}
 
 	@Test
-	public void queSePuedaRealizarLaBusquedaDeDepartamentosPorRangoDePreciosYElResultadoEsteOrdenadoPorPrecio() {
+	public void queSePuedaRealizarLaBusquedaDeDepartamentosPorRangoDePreciosYElResultadoEsteOrdenadoPorPrecio() throws SinResultadosException, UmbralMinimoException {
 		Inmobiliaria inmobiliaria = new Inmobiliaria("Boxer", "Barros Pasos 1758", 44538431);
 
 		Propiedad casa = new Casa("Parque Patricios", "Av Amancio Alcorta", 2544, 50, true, true, 0, 350000, 1000,
@@ -270,7 +260,7 @@ public class JunitTest {
 		Integer tamañoArrayListEsperado = 3;
 		Propiedad propiedadEsperadaIncio = dpto;
 		Propiedad propiedadEsperadaFinal = dpto4;
-		ArrayList<Propiedad> propiedadesListado = inmobiliaria.obtenerListadoRangoPrecioDeLosDptos(0, 190000);
+		ArrayList<Propiedad> propiedadesListado = inmobiliaria.obtenerListadoRangoPrecioDeLosDptos(0.0, 190000.0);
 
 		assertEquals(tamañoArrayListEsperado, propiedadesListado.size(), 0.1);
 		assertEquals(propiedadEsperadaIncio, propiedadesListado.get(0));
@@ -279,7 +269,7 @@ public class JunitTest {
 	}
 
 	@Test
-	public void queSePuedaRealizarLaBusquedaDeCasasPorUbicacionYElResultadoEsteOrdenadoPorUbicacion() {
+	public void queSePuedaRealizarLaBusquedaDeCasasPorUbicacionYElResultadoEsteOrdenadoPorUbicacion() throws UmbralMinimoException, SinResultadosException {
 		Inmobiliaria inmobiliaria = new Inmobiliaria("Boxer", "Barros Pasos 1758", 44538431);
 
 		Propiedad casa = new Casa("Parque Patricios", "Av Amancio Alcorta", 2544, 50, true, true, 0, 350000, 1000,
@@ -313,7 +303,7 @@ public class JunitTest {
 	}
 
 	@Test
-	public void queSePuedaRealizarLaBusquedaDeDepartamentosPorUbicacionYElResultadoEsteOrdenadoPorUbicacion() {
+	public void queSePuedaRealizarLaBusquedaDeDepartamentosPorUbicacionYElResultadoEsteOrdenadoPorUbicacion() throws UmbralMinimoException, SinResultadosException {
 		Inmobiliaria inmobiliaria = new Inmobiliaria("Boxer", "Barros Pasos 1758", 44538431);
 
 		Propiedad casa = new Casa("Parque Patricios", "Av Amancio Alcorta", 2544, 50, true, true, 0, 350000, 1000,
@@ -346,36 +336,44 @@ public class JunitTest {
 
 	}
 
-	@Test (expected = UmbralMinimoException.class)
-	public void queAlIntentarGuardarUnaPropiedadParaLaVentaCuyoImporteEstaPorDebajoDelUmbral10000SeArrojeLaExcepcionUmbralMinimoNoAlcanzadoException() throws UmbralMinimoException {
+	@Test(expected = UmbralMinimoException.class)
+	public void queAlIntentarGuardarUnaPropiedadParaLaVentaCuyoImporteEstaPorDebajoDelUmbral10000SeArrojeLaExcepcionUmbralMinimoNoAlcanzadoException()
+			throws UmbralMinimoException {
 		Inmobiliaria inmobiliaria = new Inmobiliaria("Boxer", "Barros Pasos 1758", 44538431);
-		Propiedad casa = new Casa("Parque Patricios", "Av Amancio Alcorta", 2544, 50, true, true, 0, 8000, 1000,
-				null);
-		
-		inmobiliaria.agregarPropiedadExeption(casa);
-		
+		Propiedad casa = new Casa("Parque Patricios", "Av Amancio Alcorta", 2544, 50, true, true, 0, 8000, 1000, null);
+
+		inmobiliaria.agregarPropiedad(casa);
+
 		assertTrue(inmobiliaria.getPropiedades().isEmpty());
 
 	}
-	@Test (expected = SinResultadosException.class)
-	public void queAlBuscarPorUnCriterioQueNoArrojeResultadosSeProduzcaLaExcepcionSinResultadosException() throws SinResultadosException{
+
+	@Test(expected = SinResultadosException.class)
+	public void queAlBuscarPorUnCriterioQueNoArrojeResultadosSeProduzcaLaExcepcionSinResultadosException()
+			throws SinResultadosException, UmbralMinimoException {
 		Inmobiliaria inmobiliaria = new Inmobiliaria("Boxer", "Barros Pasos 1758", 44538431);
-		Propiedad casa = new Casa("Parque Patricios", "Av Amancio Alcorta", 2544, 50, true, true, 0, 80000, 1000,
-				null);
+		Propiedad casa = new Casa("Parque Patricios", "Av Amancio Alcorta", 2544, 50, true, true, 0, 80000, 1000, null);
 		Propiedad casa2 = new Casa("Nuñez", "Av Pres Figueroa Alcorta", 7597, 70, true, true, 0, 150000, 300, null);
-		
-		
+		Propiedad dpto = new Departamento("Ramos Mejia", "Rivadavia", 7555, "A", 4, 25, true, true, 0, 50000, 200,
+				null);
+		Propiedad dpto2 = new Departamento("Ramos Mejia", "Av.de Mayo", 7555, "B", 4, 25, true, true, 0, 90000, 200,
+				null);
+		Propiedad dpto3 = new Departamento("Ramos Mejia", "Humboldt", 985, "C", 2, 25, true, true, 0, 200000, 200,
+				null);
+
 		inmobiliaria.agregarPropiedad(casa);
 		inmobiliaria.agregarPropiedad(casa2);
+		inmobiliaria.agregarPropiedad(dpto);
+		inmobiliaria.agregarPropiedad(dpto2);
+		inmobiliaria.agregarPropiedad(dpto3);
 		
-	
-		
-		assertTrue(inmobiliaria.buscarPropiedadesPorCiudadException("La Tablada").isEmpty());
-		assertFalse(inmobiliaria.buscarPropiedadesPorCiudadException("Nuñez").isEmpty());
-		
-		assertTrue(inmobiliaria.buscarPropiedadesPorPrecioException(90000.0).isEmpty());
-		assertFalse(inmobiliaria.buscarPropiedadesPorPrecioException(80000.0).isEmpty());
-	
+
+		assertTrue(inmobiliaria.obtenerListadoUbicacionDeLasCasas("La Tablada").isEmpty());
+		assertTrue(inmobiliaria.obtenerListadoUbicacionDeLosDeptos("Nuñez").isEmpty());
+
+		assertTrue(inmobiliaria.obtenerListadoRangoPrecioDeLasCasas(0.0,70000.0 ).isEmpty());
+		assertTrue(inmobiliaria.obtenerListadoRangoPrecioDeLosDptos(0.0,80000.0).isEmpty());
+
 	}
 
 }

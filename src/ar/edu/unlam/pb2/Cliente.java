@@ -8,13 +8,13 @@ public class Cliente {
 
 	private String nombre;
 	private String apellido;
-	private int dni;
-	private double dinero;
+	private Integer dni;
+	private Double dinero;
 	private Integer numTelefono;
 	
 	
 	
-	public Cliente(String nombre, String apellido, int dni, double dinero, Integer numTelefono) {
+	public Cliente(String nombre, String apellido, Integer dni, Double dinero, Integer numTelefono) {
 		
 		this.nombre = nombre;
 		this.apellido = apellido;
@@ -41,13 +41,13 @@ public class Cliente {
 	public int getDni() {
 		return dni;
 	}
-	public void setDni(int dni) {
+	public void setDni(Integer dni) {
 		this.dni = dni;
 	}
-	public double getDinero() {
+	public Double getDinero() {
 		return dinero;
 	}
-	public void setDinero(double dinero) {
+	public void setDinero(Double dinero) {
 		this.dinero = dinero;
 	}
 	public Integer getNumTelefono() {

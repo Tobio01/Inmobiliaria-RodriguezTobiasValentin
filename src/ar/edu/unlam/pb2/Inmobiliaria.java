@@ -64,7 +64,7 @@ public class Inmobiliaria {
 		this.clientes = clientes;
 	}
 
-	public boolean agregarPropiedadExeption(Propiedad propiedadNueva) throws UmbralMinimoException {
+	public boolean agregarPropiedad(Propiedad propiedadNueva) throws UmbralMinimoException {
 		if (propiedadNueva.getPrecioVenta() < UMBRAL_MINIMO) {
 			throw new UmbralMinimoException("Umbral Minimo no superado");
 		} else {
@@ -74,14 +74,9 @@ public class Inmobiliaria {
 		}
 	}
 
-	public boolean agregarPropiedad(Propiedad propiedadNueva) {
+	
 
-		propiedades.add(propiedadNueva);
-		propiedadNueva.setCodigo(propiedades.size());
-		return true;
-	}
-
-	public Propiedad buscarPropiedadPorCodigo(int codigo) {
+	public Propiedad buscarPropiedadPorCodigo(Integer codigo) {
 
 		for (Propiedad propiedadEncontrada : propiedades) {
 			if (propiedadEncontrada.getCodigo() == codigo) {
@@ -102,7 +97,7 @@ public class Inmobiliaria {
 		}
 	}
 
-	public Cliente buscarCliente(int dni) {
+	public Cliente buscarCliente(Integer dni) {
 
 		for (Cliente clientes : clientes) {
 			if (clientes.getDni() == dni) {
@@ -115,7 +110,7 @@ public class Inmobiliaria {
 
 	public ArrayList<Propiedad> ordenarListadoPorPrecio() {
 
-		Collections.sort(propiedades);
+		Collections.sort(propiedades, new OrdenarPorPrecio());
 
 		return propiedades;
 
@@ -163,7 +158,7 @@ public class Inmobiliaria {
 
 	}
 
-	public ArrayList<Propiedad> obtenerListadoRangoPrecioDeLasCasas(double precioMin, double precioMax) {
+	public ArrayList<Propiedad> obtenerListadoRangoPrecioDeLasCasas(Double precioMin, Double precioMax)throws SinResultadosException {
 		ArrayList<Propiedad> propiedadesListado = new ArrayList<Propiedad>();
 		ordenarListadoPorPrecio();
 		for (Propiedad propiedadesExistentes : propiedades) {
@@ -175,14 +170,14 @@ public class Inmobiliaria {
 				}
 		}
 		if (propiedadesListado.isEmpty()) {
-			return null;
+			throw new SinResultadosException("No hay propiedades que coincidan con el atributo");
 		} else {
 			return propiedadesListado;
 		}
 
 	}
 
-	public ArrayList<Propiedad> obtenerListadoRangoPrecioDeLosDptos(double precioMin, double precioMax) {
+	public ArrayList<Propiedad> obtenerListadoRangoPrecioDeLosDptos(Double precioMin, Double precioMax)throws SinResultadosException {
 		ArrayList<Propiedad> propiedadesListado = new ArrayList<Propiedad>();
 		ordenarListadoPorPrecio();
 		for (Propiedad propiedadesExistentes : propiedades) {
@@ -194,14 +189,14 @@ public class Inmobiliaria {
 				}
 		}
 		if (propiedadesListado.isEmpty()) {
-			return null;
+			throw new SinResultadosException("No hay propiedades que coincidan con el atributo");
 		} else {
 			return propiedadesListado;
 		}
 
 	}
 
-	public ArrayList<Propiedad> obtenerListadoUbicacionDeLasCasas(String ubicacion) {
+	public ArrayList<Propiedad> obtenerListadoUbicacionDeLasCasas(String ubicacion)throws SinResultadosException {
 		ArrayList<Propiedad> propiedadesListado = new ArrayList<Propiedad>();
 		ordenarListadoPorUbicacion();
 		for (Propiedad propiedadesExistentes : propiedades) {
@@ -212,13 +207,13 @@ public class Inmobiliaria {
 				}
 		}
 		if (propiedadesListado.isEmpty()) {
-			return null;
+			throw new SinResultadosException("No hay propiedades que coincidan con el atributo");
 		} else {
 			return propiedadesListado;
 		}
 	}
 
-	public ArrayList<Propiedad> obtenerListadoUbicacionDeLosDeptos(String ubicacion) {
+	public ArrayList<Propiedad> obtenerListadoUbicacionDeLosDeptos(String ubicacion)throws SinResultadosException {
 		ArrayList<Propiedad> propiedadesListado = new ArrayList<Propiedad>();
 		ordenarListadoPorUbicacion();
 		for (Propiedad propiedadesExistentes : propiedades) {
@@ -229,7 +224,7 @@ public class Inmobiliaria {
 				}
 		}
 		if (propiedadesListado.isEmpty()) {
-			return null;
+			throw new SinResultadosException("No hay propiedades que coincidan con el atributo");
 		} else {
 			return propiedadesListado;
 		}
@@ -267,53 +262,56 @@ public class Inmobiliaria {
 		}
 	}
 
-	public void ventaPropiedad(int codigo, Cliente cliente) {
+	public boolean ventaPropiedad(Integer codigo, Cliente cliente) {
 		boolean propiedadEncontrada = false;
 		for (Propiedad propiedad : propiedades) {
 			if (propiedad.getCodigo() == codigo) {
 				propiedadEncontrada = true;
 				if (!propiedad.isEstaDisponibleVenta()) {
-					System.err.println("La propiedad no está disponible");
+					return false;
 				} else if (cliente.getDinero() < propiedad.getPrecioVenta()) {
-					System.err.println("No cuenta con el dinero suficiente para comprar esta propiedad");
+					return false;
 				} else {
 					propiedad.setEstaDisponibleVenta(false);
 					double dineroClienteActual = cliente.getDinero() - propiedad.getPrecioVenta();
 					cliente.setDinero(dineroClienteActual);
-					System.out.println("¡Felicidades! Usted compró la propiedad");
+					return true;
 				}
-				break;
+				
 			}
 		}
 		if (!propiedadEncontrada) {
-			System.err.println("No existe ninguna propiedad con ese código");
-		}
-	}
+			return false;
+		} else {
+		return true;
+		}}
 
-	public void alquilerPropiedad(int codigo, Cliente cliente) {
+	public boolean alquilerPropiedad(Integer codigo, Cliente cliente) {
 		boolean propiedadEncontrada = false;
 		for (Propiedad propiedad : propiedades) {
 			if (propiedad.getCodigo() == codigo) {
 				propiedadEncontrada = true;
 				if (!propiedad.isEstaDisponibleAlquiler()) {
-					System.err.println("La propiedad no está disponible");
+					return false;
 				} else if (cliente.getDinero() < propiedad.getPrecioAlquiler()) {
-					System.err.println("No cuenta con el dinero suficiente para alquilar esta propiedad");
+					return false;
 				} else {
 					propiedad.setEstaDisponibleAlquiler(false);
 					double dineroClienteActual = cliente.getDinero() - propiedad.getPrecioAlquiler();
 					cliente.setDinero(dineroClienteActual);
-					System.out.println("¡Felicidades! Usted alquilo la propiedad");
+					return true;
 				}
-				break;
+			
 			}
 		}
 		if (!propiedadEncontrada) {
-			System.err.println("No existe ninguna propiedad con ese código");
+			return false;
+		} else {
+			return true;
 		}
 	}
 
-	public void permutaPropiedad(int codigoPropiedadX, int codigoPropiedadY) {
+	public boolean permutaPropiedad(Integer codigoPropiedadX, Integer codigoPropiedadY) {
 		Propiedad propiedadX = null;
 		Propiedad propiedadY = null;
 		boolean propiedadEncontradaX = false;
@@ -335,36 +333,14 @@ public class Inmobiliaria {
 
 			propiedadX.setDueño(dueñoY);
 			propiedadY.setDueño(dueñoX);
+			return true;
 		}
 
-		if (propiedadEncontradaX == false || propiedadEncontradaY == false) {
-			System.err.println("Los codigos no coinciden con las propiedades a permutar");
+		if (propiedadEncontradaX == true && propiedadEncontradaY == true) {
+			return true;
+		} else {
+			return false;
 		}
 	}
-	public ArrayList<Propiedad> buscarPropiedadesPorCiudadException(String atributo) throws SinResultadosException {
-		ArrayList<Propiedad> propiedadesListado = new ArrayList<Propiedad>();
-		
-		for (Propiedad propiedad : propiedades) {
-			if (propiedad.getCiudad().equalsIgnoreCase(atributo)) {
-				propiedadesListado.add(propiedad);
-			}
-		}
-		if (propiedadesListado.isEmpty()) {
-			throw new SinResultadosException("No hay propiedades que coincidan con el atributo");
-		}
-		return propiedadesListado;
-	}
-	public ArrayList<Propiedad> buscarPropiedadesPorPrecioException(Double atributo) throws SinResultadosException {
-		ArrayList<Propiedad> propiedadesListado = new ArrayList<Propiedad>();
-		
-		for (Propiedad propiedad : propiedades) {
-			if (propiedad.getPrecioVenta().equals(atributo)) {
-				propiedadesListado.add(propiedad);
-			}
-		}
-		if (propiedadesListado.isEmpty()) {
-			throw new SinResultadosException("No hay propiedades que coincidan con el atributo");
-		}
-		return propiedadesListado;
-	}
+	
 }

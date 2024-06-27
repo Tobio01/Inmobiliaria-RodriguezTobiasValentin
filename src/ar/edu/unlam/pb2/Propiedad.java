@@ -1,20 +1,20 @@
 package ar.edu.unlam.pb2;
 
-public abstract class Propiedad implements Comparable<Propiedad> {
+public abstract class Propiedad  {
 
 	protected String ciudad;
 	protected String calle;
 	protected Integer altura;
-	protected double mtsCuadrados;
+	protected Double mtsCuadrados;
 	protected Integer codigo;
 	protected boolean estaDisponibleVenta;
 	protected boolean estaDisponibleAlquiler;
 	protected Double precioVenta;
-	protected double precioAlquiler;
+	protected Double precioAlquiler;
 	protected Cliente dueño;
 
-	public Propiedad(String ciudad, String calle, Integer altura, double mtsCuadrados, boolean estaDisponibleVenta,
-			boolean estaDisponibleAlquiler, Integer codigo, Double precioVenta, double precioAlquiler, Cliente dueño) {
+	public Propiedad(String ciudad, String calle, Integer altura, Double mtsCuadrados, boolean estaDisponibleVenta,
+			boolean estaDisponibleAlquiler, Integer codigo, Double precioVenta, Double precioAlquiler, Cliente dueño) {
 
 		this.ciudad = ciudad;
 		this.calle = calle;
@@ -52,11 +52,11 @@ public abstract class Propiedad implements Comparable<Propiedad> {
 		this.altura = altura;
 	}
 
-	public double getMtsCuadrados() {
+	public Double getMtsCuadrados() {
 		return mtsCuadrados;
 	}
 
-	public void setMtsCuadrados(double mtsCuadrados) {
+	public void setMtsCuadrados(Double mtsCuadrados) {
 		this.mtsCuadrados = mtsCuadrados;
 	}
 
@@ -92,11 +92,11 @@ public abstract class Propiedad implements Comparable<Propiedad> {
 		this.precioVenta = precioVenta;
 	}
 
-	public double getPrecioAlquiler() {
+	public Double getPrecioAlquiler() {
 		return precioAlquiler;
 	}
 
-	public void setPrecioAlquiler(double precioAlquiler) {
+	public void setPrecioAlquiler(Double precioAlquiler) {
 		this.precioAlquiler = precioAlquiler;
 	}
 	
@@ -117,14 +117,6 @@ public abstract class Propiedad implements Comparable<Propiedad> {
 				+ "\n .Precio Alquiler = $" + precioAlquiler + "\n.............................................";
 	}
 
-	public int compareTo(Propiedad propiedad) {
-		if (propiedad.getPrecioVenta() > precioVenta) {
-			return -1;
-		} else if (propiedad.getPrecioVenta() > precioVenta) {
-			return 0;
-		} else {
-			return 1;
-		}
-	}
+	
 
 }

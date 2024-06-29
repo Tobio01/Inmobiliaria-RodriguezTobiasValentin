@@ -142,7 +142,7 @@ public class JunitTest {
 		Casa casa3 = new Casa("La Boca", "Brandsen", 805, 50, true, true, 0, 400000, 1000, null);
 		Casa casa4 = new Casa("Avellaneda", "Ricardo Enrique Bochini", 751, 70, true, true, 0, 100000, 300, null);
 
-		Cliente cliente = new Cliente("Jose Luis", "Rodriguez", 44513673, 200000.0, 1166668099);
+		Cliente comprador = new Cliente("Jose Luis", "Rodriguez", 44513673, 20000000.0, 1166668099);
 
 		inmobiliaria.agregarPropiedad(casa);
 		inmobiliaria.agregarPropiedad(casa2);
@@ -150,8 +150,10 @@ public class JunitTest {
 		inmobiliaria.agregarPropiedad(dpto2);
 		inmobiliaria.agregarPropiedad(casa3);
 		inmobiliaria.agregarPropiedad(casa4);
+		
+		
 
-		assertTrue(inmobiliaria.ventaPropiedad(3, cliente));
+		assertTrue(inmobiliaria.EjecutarVentaPropiedad(1, comprador));
 
 	}
 
@@ -177,7 +179,7 @@ public class JunitTest {
 		inmobiliaria.agregarPropiedad(casa3);
 		inmobiliaria.agregarPropiedad(casa4);
 
-		assertTrue(inmobiliaria.alquilerPropiedad(2, cliente));
+		assertTrue(inmobiliaria.EjecutarAlquilerPropiedad(2, cliente));
 
 	}
 
@@ -195,10 +197,12 @@ public class JunitTest {
 
 		inmobiliaria.agregarCliente(clienteX);
 		inmobiliaria.agregarCliente(clienteY);
+		
+		
 
-		assertTrue(inmobiliaria.permutaPropiedad(1, 2));
+		assertTrue(inmobiliaria.EjecutarPermutaPropiedad(1, 2));
 
-	
+		
 
 	}
 

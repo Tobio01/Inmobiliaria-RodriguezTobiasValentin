@@ -26,6 +26,12 @@ public abstract class Operacion {
 		this.tipo = tipo;
 	}
 	
+	@Override
+	public String toString() {
+		return "Operacion [idOperacion=" + idOperacion + ", tipo=" + tipo + "]";
+	}
+	
+	
 	
 	
 	

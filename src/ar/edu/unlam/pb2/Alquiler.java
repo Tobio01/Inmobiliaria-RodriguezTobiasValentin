@@ -1,10 +1,10 @@
 package ar.edu.unlam.pb2;
 
 public class Alquiler extends Operacion {
-	
+
 	private Propiedad propiedadAlquiler;
 	private Cliente inquilino;
-	
+
 	public Alquiler(tipoOperacion tipo, Propiedad propiedadAlquiler, Cliente inquilino) {
 		super(tipo);
 
@@ -26,7 +26,8 @@ public class Alquiler extends Operacion {
 
 	public void setInquilino(Cliente inquilino) {
 		this.inquilino = inquilino;
-	} 
+	}
+
 	public Boolean ejecutar(Propiedad propiedadAlquiler) {
 		if (!propiedadAlquiler.isEstaDisponibleAlquiler()) {
 			return false;
@@ -39,4 +40,11 @@ public class Alquiler extends Operacion {
 			return true;
 		}
 	}
+
+	@Override
+	public String toString() {
+		return "Alquiler [propiedadAlquiler=" + propiedadAlquiler + ", inquilino=" + inquilino + "]";
+	}
+
+	
 }

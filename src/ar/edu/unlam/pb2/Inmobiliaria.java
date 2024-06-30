@@ -64,6 +64,14 @@ public class Inmobiliaria {
 		this.clientes = clientes;
 	}
 
+	public ArrayList<Operacion> getOperaciones() {
+		return operaciones;
+	}
+
+	public void setOperaciones(ArrayList<Operacion> operaciones) {
+		this.operaciones = operaciones;
+	}
+
 	public Boolean agregarPropiedad(Propiedad propiedadNueva) throws UmbralMinimoException {
 		if (propiedadNueva.getPrecioVenta() < UMBRAL_MINIMO) {
 			throw new UmbralMinimoException("Umbral Minimo no superado");
@@ -297,9 +305,8 @@ public class Inmobiliaria {
 			permuta.ejecutar(propiedadA, propiedadB);
 			operaciones.add(permuta);
 			return true;
-		} else {
-			return false;
 		}
+		return false;
 	}
 
 }

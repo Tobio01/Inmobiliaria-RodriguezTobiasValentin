@@ -42,4 +42,11 @@ public class Venta extends Operacion {
 		}
 	}
 
+	@Override
+	public String toString() {
+		return "Venta [propiedadVenta=" + propiedadVenta + ", comprador=" + comprador + "]";
+	}
+
+	
+
 }

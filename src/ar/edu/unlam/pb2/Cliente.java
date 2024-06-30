@@ -73,6 +73,16 @@ public class Cliente {
 		Cliente cliente = (Cliente) obj;
 		return Objects.equals(dni, cliente.dni);
 	}
+
+
+
+
+	@Override
+	public String toString() {
+		return "Cliente [nombre=" + nombre + ", apellido=" + apellido + ", dni=" + dni + ", dinero=" + dinero
+				+ ", numTelefono=" + numTelefono + "]";
+	}
+	
 	
 	
 	

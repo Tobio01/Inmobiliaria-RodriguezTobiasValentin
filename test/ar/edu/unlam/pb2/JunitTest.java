@@ -205,6 +205,44 @@ public class JunitTest {
 		
 
 	}
+	
+	@Test 
+	public void queSeGuardenCorrectamenteLasOperacionesEnLaColeccion() throws UmbralMinimoException {
+		Inmobiliaria inmobiliaria = new Inmobiliaria("Boxer", "Barros Pasos 1758", 44538431);
+		Cliente clienteX = new Cliente("Tobias", "Rodriguez", 1, 10000.0, 123);
+		Cliente clienteY = new Cliente("Agustin", "Dangelo", 2, 10000.0, 1234);
+		Cliente comprador = new Cliente("Jose Luis", "Rodriguez", 44513673, 20000000.0, 1166668099);
+		
+		Departamento dpto = new Departamento("Ramos Mejia", "Av. de Mayo", 7555, "A", 4, 25, true, true, 0, 50000, 200,
+				clienteX);
+		Departamento dpto2 = new Departamento("Ramos Mejia", "Av. de Mayo", 7555, "B", 4, 25, true, true, 0, 90000, 200,
+				clienteY);
+		Casa casa = new Casa("Parque Patricios", "Av Amancio Alcorta", 2544, 50, true, true, 0, 350000, 1000, null);
+		Casa casa2 = new Casa("Nuñez", "Av Pres Figueroa Alcorta", 7597, 70, true, true, 0, 150000, 300, null);
+		Casa casa3 = new Casa("La Boca", "Brandsen", 805, 50, true, true, 0, 400000, 1000, null);
+		Casa casa4 = new Casa("Avellaneda", "Ricardo Enrique Bochini", 751, 70, true, true, 0, 100000, 300, null);
+
+		
+	
+
+		inmobiliaria.agregarPropiedad(casa);
+		inmobiliaria.agregarPropiedad(casa2);
+		inmobiliaria.agregarPropiedad(dpto);
+		inmobiliaria.agregarPropiedad(dpto2);
+		inmobiliaria.agregarPropiedad(casa3);
+		inmobiliaria.agregarPropiedad(casa4);
+		
+		
+
+		inmobiliaria.EjecutarVentaPropiedad(1, comprador);
+		inmobiliaria.EjecutarAlquilerPropiedad(2, comprador);
+		inmobiliaria.EjecutarPermutaPropiedad(3, 4);
+		
+		assertFalse(inmobiliaria.getOperaciones().isEmpty());
+		
+	}
+	
+	
 
 	@Test
 	public void queSePuedaRealizarLaBusquedaDeCasasPorRangoDePreciosYElResultadoEsteOrdenadoPorPrecio() throws SinResultadosException, UmbralMinimoException {
